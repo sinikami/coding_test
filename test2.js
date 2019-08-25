@@ -37,18 +37,22 @@ const toKoString = (number) => {
     }
     let rst = []
     let tmp = 0;
+    const number_size = split_nums.length;
     for (i in split_nums) {
-        if (split_nums[i] != 0) {
-            rst.push(reversed_map[split_nums[i]]);
+        const num = split_nums[i];
+        const units_idx = number_size - i
+        if (num != 0) {
+            rst.push(reversed_map[num]);
             tmp = 0
         } else {
             tmp++;
         }
-        if (to_ko_units.hasOwnProperty(split_nums.length - i)) {
-            const main_unit = to_ko_units[split_nums.length - i];
+        
+        if (to_ko_units.hasOwnProperty(units_idx)) {
+            const main_unit = to_ko_units[units_idx];
             const sub_unit = to_ko_units[tmp + 1];
-            if (tmp > 0 && split_nums.length - i > 4) rst.push(sub_unit)
-            if (split_nums[i] != 0) rst.push(main_unit)
+            if (tmp > 0 && units_idx > 4) rst.push(sub_unit)
+            if (num != 0) rst.push(main_unit)
         }
     }
     return rst.join('');
